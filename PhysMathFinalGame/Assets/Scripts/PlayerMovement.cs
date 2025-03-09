@@ -23,12 +23,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate()
-{
-    if (!isGrounded) // Apply only when in the air
     {
-        rb.velocity += Vector3.down * extraGravity * Time.fixedDeltaTime;
+        if (!isGrounded) // Apply only when in the air
+        {
+            rb.velocity += Vector3.down * extraGravity * Time.fixedDeltaTime;
+        }
     }
-}
 
     void HandleMovement()
     {
@@ -61,6 +61,23 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    // ✅ Trigger-based ground detection (for objects tagged "Ground")
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ground"))
         {
             isGrounded = false;
         }

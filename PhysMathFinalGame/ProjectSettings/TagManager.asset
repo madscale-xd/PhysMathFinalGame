@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Gear
+  - Stopper
   layers:
   - Default
   - TransparentFX
